@@ -1,0 +1,75 @@
+/* Basic styling for the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Center the title */
+h1 {
+    text-align: center;
+}
+
+/* Styling the chat container */
+#chat-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 500px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+/* Styling the chat window where messages appear */
+#chat-window {
+    height: 450px;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+/* Individual message bubbles */
+.message {
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #eee;
+}
+
+/* Styling for user messages */
+.message.user {
+    text-align: right;
+    background-color: #a1eafb;
+}
+
+/* Styling for bot messages */
+.message.bot {
+    text-align: left;
+    background-color: #f1f1f1;
+}
+
+/* Styling the input field */
+#user-input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* Styling the send button */
+#send-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Hover effect for the send button */
+#send-button:hover {
+    background-color: #0056b3;
+}
