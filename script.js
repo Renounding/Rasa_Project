@@ -15,8 +15,9 @@ function sendMessage() {
     if (message) {
         addMessageToChat('User', message);
 
-        // Send message to Rasa server via the ngrok URL (replace <your-ngrok-url> with your actual ngrok URL)
-        fetch('https://<your-ngrok-url>/webhooks/rest/webhook', {
+        // Send message to Rasa server via the ngrok URL
+        // Replace 'your-ngrok-url' with your actual ngrok URL
+        fetch('https://your-ngrok-url/webhooks/rest/webhook', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,11 +30,13 @@ function sendMessage() {
                 data.forEach(response => {
                     addMessageToChat('Bot', response.text);
                 });
+            } else {
+                addMessageToChat('Bot', 'Sorry, I didn\'t understand that. Can you rephrase?');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            addMessageToChat('Bot', 'Error connecting to the server.');
+            addMessageToChat('Bot', 'Error connecting to the server. Please try again later.');
         });
 
         userInput.value = ''; // Clear the input field
@@ -48,3 +51,8 @@ function addMessageToChat(sender, message) {
     chatWindow.appendChild(messageElement);
     chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to the latest message
 }
+
+// Optional: Add a greeting message when the chat loads
+window.addEventListener('load', () => {
+    addMessageToChat('Bot', 'Hello! Welcome to Alberta Education Consultants. How can I assist you today?');
+});
