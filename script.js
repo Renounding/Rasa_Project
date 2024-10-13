@@ -16,11 +16,11 @@ function sendMessage() {
         addMessageToChat('User', message);
 
         // Send message to Rasa server via the ngrok URL
-        // Replace 'your-ngrok-url' with your actual ngrok URL
         fetch("https://768f-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Origin': 'https://renounding.github.io'
             },
             body: JSON.stringify({ sender: 'user', message: message }),
         })
