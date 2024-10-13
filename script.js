@@ -17,7 +17,7 @@ function sendMessage() {
 
         // Send message to Rasa server via the ngrok URL
         // Replace 'your-ngrok-url' with your actual ngrok URL
-        fetch('https://your-ngrok-url/webhooks/rest/webhook', {
+        fetch("https://768f-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
