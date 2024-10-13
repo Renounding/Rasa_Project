@@ -15,15 +15,15 @@ function sendMessage() {
     if (message) {
         addMessageToChat('User', message);
 
-        // Send message to Rasa server via the ngrok URL
-        fetch("https://f590-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
+        // Send message to Rasa server via the new ngrok URL
+        fetch("https://a6ad-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Origin': 'https://renounding.github.io',
                 'Access-Control-Allow-Origin': '*'
             },
-            body: JSON.stringify({ sender: 'user', message: message }),
+            body: JSON.stringify({ sender: 'user', message: message })
         })
         .then(response => response.json())
         .then(data => {
@@ -32,7 +32,7 @@ function sendMessage() {
                     addMessageToChat('Bot', response.text);
                 });
             } else {
-                addMessageToChat('Bot', 'I apologize, I didn't understand that. Could you please rephrase?');
+                addMessageToChat('Bot', "I apologize, I didn't understand that. Could you please rephrase?");
             }
         })
         .catch(error => {
