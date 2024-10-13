@@ -16,11 +16,12 @@ function sendMessage() {
         addMessageToChat('User', message);
 
         // Send message to Rasa server via the ngrok URL
-        fetch("https://768f-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
+        fetch("https://f590-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Origin': 'https://renounding.github.io'
+                'Origin': 'https://renounding.github.io',
+                'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify({ sender: 'user', message: message }),
         })
@@ -31,7 +32,7 @@ function sendMessage() {
                     addMessageToChat('Bot', response.text);
                 });
             } else {
-                addMessageToChat('Bot', 'Sorry, I didn\'t understand that. Can you rephrase?');
+                addMessageToChat('Bot', 'I apologize, I didn't understand that. Could you please rephrase?');
             }
         })
         .catch(error => {
@@ -54,5 +55,5 @@ function addMessageToChat(sender, message) {
 
 // Optional: Add a greeting message when the chat loads
 window.addEventListener('load', () => {
-    addMessageToChat('Bot', 'Hello! Welcome to Alberta Education Consultants. How can I assist you today?');
+    addMessageToChat('Bot', 'Hello! Welcome to Alberta Educational Centre. How can I assist you today?');
 });
