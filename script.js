@@ -15,8 +15,8 @@ function sendMessage() {
     if (message) {
         addMessageToChat('User', message);
 
-        // Send message to Rasa server via the updated ngrok URL
-        fetch(" https://3979-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", { // Updated ngrok URL
+        // Send message to Rasa server via the new ngrok URL
+        fetch(" https://3979-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,15 +29,15 @@ function sendMessage() {
         .then(data => {
             if (data && data.length > 0) {
                 data.forEach(response => {
-                    addMessageToChat('Bot', response.text);
+                    addMessageToChat('Goodie Bot', response.text);  // Changed "Bot" to "Goodie Bot"
                 });
             } else {
-                addMessageToChat('Bot', "I apologize, I didn't understand that. Could you please rephrase?");
+                addMessageToChat('Goodie Bot', "I apologize, I didn't understand that. Could you please rephrase?");
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            addMessageToChat('Bot', 'Error connecting to the server. Please try again later.');
+            addMessageToChat('Goodie Bot', 'Error connecting to the server. Please try again later.');
         });
 
         userInput.value = ''; // Clear the input field
@@ -48,10 +48,6 @@ function sendMessage() {
 function addMessageToChat(sender, message) {
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', sender.toLowerCase());
-
-    // Convert markdown links to HTML
-    message = message.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-
     messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
     chatWindow.appendChild(messageElement);
     chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to the latest message
@@ -59,5 +55,5 @@ function addMessageToChat(sender, message) {
 
 // Optional: Add a greeting message when the chat loads
 window.addEventListener('load', () => {
-    addMessageToChat('Bot', 'Hello! Welcome to Alberta Educational Centre. How can I assist you today?');
+    addMessageToChat('Goodie Bot', 'Hello! Welcome to Alberta Educational Centre. How can I assist you today?');
 });
