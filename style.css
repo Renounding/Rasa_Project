@@ -1,51 +1,45 @@
-/* Chat window styling */
+/* General Styles */
 #chat-window {
-    background-color: #E6EEF8;  /* Your desired background color */
-    border: 2px solid #005ea2;  /* Border matching the old style */
-    height: 400px;
     width: 100%;
-    overflow-y: auto;
+    height: 400px;
+    border: 1px solid #ccc;
     padding: 10px;
-    font-size: 1em;  /* Keeping the size same */
+    overflow-y: scroll;
+    margin-bottom: 10px;
 }
 
-/* Input field styling */
+#chatbar {
+    display: flex;
+    align-items: center;
+}
+
 #user-input {
-    width: 85%;  /* Adjusted to allow space for the send button */
-    height: 40px;
+    flex: 1;
     padding: 10px;
-    border: 2px solid #005ea2;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 1em;
 }
 
-/* Send button styling */
 #send-button {
-    width: 10%;  /* Adjusted size */
-    height: 40px;
-    background-color: #005ea2;  /* Button color matching your theme */
+    margin-left: 10px; /* Adds space between input field and button */
+    padding: 10px 20px;
+    background-color: #fa7b00;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    float: right;  /* Puts the button on the right side */
 }
 
-/* Message styling */
-.message.user {
-    color: #005ea2;
-    margin: 5px;
+/* Styling for Links in Messages */
+.message a {
+    color: #0000FF;
+    text-decoration: underline;
+}
+
+.message.goodie-bot a {
+    color: #fa7b00; /* Goodie-Bot's response link color */
 }
 
 .message.goodie-bot {
-    color: #fa7b00;  /* Goodie-Bot message color */
-    margin: 5px;
-    font-weight: bold;
-}
-
-/* Additional styling for better layout */
-#chatbar {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 10px;
+    color: #fa7b00; /* Goodie-Bot's text color */
 }

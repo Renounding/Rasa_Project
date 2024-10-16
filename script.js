@@ -9,6 +9,11 @@ userInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') sendMessage();
 });
 
+// Function to render Markdown links as HTML
+function renderMarkdown(text) {
+    return text.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+}
+
 // Function to send the message to the Rasa bot
 function sendMessage() {
     const message = userInput.value.trim();
@@ -29,7 +34,7 @@ function sendMessage() {
         .then(data => {
             if (data && data.length > 0) {
                 data.forEach(response => {
-                    addMessageToChat('Goodie-Bot', response.text);  // Changed the bot name here
+                    addMessageToChat('Goodie-Bot', response.text);
                 });
             } else {
                 addMessageToChat('Goodie-Bot', "I apologize, I didn't understand that. Could you please rephrase?");
@@ -47,13 +52,13 @@ function sendMessage() {
 // Function to add messages to the chat window
 function addMessageToChat(sender, message) {
     const messageElement = document.createElement('div');
-    messageElement.classList.add('message', sender.toLowerCase().replace(' ', '-'));  // Fixes the space issue
-    messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+    messageElement.classList.add('message', sender.toLowerCase().replace(' ', '-'));
+    messageElement.innerHTML = `<strong>${sender}:</strong> ${renderMarkdown(message)}`;
     chatWindow.appendChild(messageElement);
     chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to the latest message
 }
 
 // Optional: Add a greeting message when the chat loads
 window.addEventListener('load', () => {
-    addMessageToChat('Goodie-Bot', 'Hello! Welcome to Goodie Bot Demo. How can I assist you today?');  // Changed greeting here
+    addMessageToChat('Goodie-Bot', 'Hello! Welcome to Goodie Bot Demo. How can I assist you today?');
 });
