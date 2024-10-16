@@ -11,7 +11,8 @@ userInput.addEventListener('keypress', function(e) {
 
 // Function to render Markdown links as HTML
 function renderMarkdown(text) {
-    return text.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+    return text.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+               .replace(/\n/g, '<br>'); // Handles new line breaks
 }
 
 // Function to send the message to the Rasa bot
@@ -20,7 +21,7 @@ function sendMessage() {
     if (message) {
         addMessageToChat('User', message);
 
-        // Send message to Rasa server via the new ngrok URL
+        // Send message to Rasa server via the ngrok URL
         fetch("https://3979-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
             method: 'POST',
             headers: {
