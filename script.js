@@ -16,7 +16,7 @@ function sendMessage() {
         addMessageToChat('User', message);
 
         // Send message to Rasa server via the new ngrok URL
-        fetch(" https://3979-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
+        fetch("https://3979-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,15 +29,15 @@ function sendMessage() {
         .then(data => {
             if (data && data.length > 0) {
                 data.forEach(response => {
-                    addMessageToChat('Goodie Bot', response.text);  // Changed "Bot" to "Goodie Bot"
+                    addMessageToChat('Goodie-Bot', response.text);  // Changed the bot name here
                 });
             } else {
-                addMessageToChat('Goodie Bot', "I apologize, I didn't understand that. Could you please rephrase?");
+                addMessageToChat('Goodie-Bot', "I apologize, I didn't understand that. Could you please rephrase?");
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            addMessageToChat('Goodie Bot', 'Error connecting to the server. Please try again later.');
+            addMessageToChat('Goodie-Bot', 'Error connecting to the server. Please try again later.');
         });
 
         userInput.value = ''; // Clear the input field
@@ -47,7 +47,7 @@ function sendMessage() {
 // Function to add messages to the chat window
 function addMessageToChat(sender, message) {
     const messageElement = document.createElement('div');
-    messageElement.classList.add('message', sender.toLowerCase());
+    messageElement.classList.add('message', sender.toLowerCase().replace(' ', '-'));  // Fixes the space issue
     messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
     chatWindow.appendChild(messageElement);
     chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to the latest message
@@ -55,5 +55,5 @@ function addMessageToChat(sender, message) {
 
 // Optional: Add a greeting message when the chat loads
 window.addEventListener('load', () => {
-    addMessageToChat('Goodie Bot', 'Hello! Welcome to Alberta Educational Centre. How can I assist you today?');
+    addMessageToChat('Goodie-Bot', 'Hello! Welcome to Goodie Bot Demo. How can I assist you today?');  // Changed greeting here
 });
