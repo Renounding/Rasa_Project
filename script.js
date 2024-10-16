@@ -16,7 +16,7 @@ function sendMessage() {
         addMessageToChat('User', message);
 
         // Send message to Rasa server via the updated ngrok URL
-        fetch("https://da6a-142-110-39-187.ngrok-free.app/webhooks/rest/webhook", { // Updated ngrok URL
+        fetch(" https://3979-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", { // Updated ngrok URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -48,6 +48,10 @@ function sendMessage() {
 function addMessageToChat(sender, message) {
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', sender.toLowerCase());
+
+    // Convert markdown links to HTML
+    message = message.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+
     messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
     chatWindow.appendChild(messageElement);
     chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to the latest message

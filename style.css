@@ -37,6 +37,16 @@ body {
     color: #333333;
 }
 
+/* Style for hyperlinks */
+.message a {
+    color: #0000FF;
+    text-decoration: underline;
+}
+
+.message.user a {
+    color: #ADD8E6;
+}
+
 #user-input {
     width: calc(100% - 120px);
     padding: 12px 15px;
