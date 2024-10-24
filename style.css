@@ -1,3 +1,10 @@
+/* Chat container styling */
+.chat-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 /* Chat window styling */
 #chat-window {
     width: 100%;
@@ -7,25 +14,28 @@
     overflow-y: scroll;
     background-color: #F4F4F9;
     font-family: 'Arial', sans-serif;
+    margin-bottom: 10px;
 }
 
 /* Chat bar styling */
 #chatbar {
     display: flex;
+    flex-direction: column;
     margin-top: 10px;
+    gap: 10px;  /* Adds space between input and button */
 }
 
 #user-input {
-    width: 85%;
+    width: 100%;
     padding: 10px;
     border: 2px solid #0091EA;
-    border-right: none;
     font-size: 16px;
     background-color: #FFFFFF;
+    box-sizing: border-box;
 }
 
 #send-button {
-    width: 15%;
+    width: 100%;
     padding: 10px;
     background-color: #0091EA;
     color: white;
@@ -38,26 +48,38 @@
     background-color: #0075BA;
 }
 
-/* Message bubble styling */
+/* Message styling */
 .message {
     margin: 5px 0;
     padding: 10px;
-    border-radius: 10px;
     font-size: 14px;
 }
 
 .user {
-    background-color: #DCE775;
-    align-self: flex-end;
+    color: #2E7D32;
     text-align: right;
 }
 
 .goodie-bot {
-    background-color: #81D4FA;
-    align-self: flex-start;
+    color: #0277BD;
     text-align: left;
 }
 
+/* Make the sender names bold */
+.message strong {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.user strong {
+    color: #1B5E20;  /* Slightly darker green for the label */
+}
+
+.goodie-bot strong {
+    color: #01579B;  /* Slightly darker blue for the label */
+}
+
+/* Link styling */
 .message a {
     color: #0091EA;
     text-decoration: underline;
