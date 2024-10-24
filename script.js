@@ -22,7 +22,7 @@ function sendMessage() {
         addMessageToChat('User', message);
 
         // Send message to Rasa server via the ngrok URL
-        fetch("https://450e-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
+        fetch("https://2ce2-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
