@@ -161,21 +161,21 @@
 /* Topic buttons styling */
 .topics-container {
     display: flex;
-    gap: 10px;
-    margin-top: 10px;
-    align-items: center;
+    gap: 5px;
+    margin-top: 8px;
+    justify-content: space-between;
 }
 
 .topic-button {
-    padding: 10px 15px;
-    font-size: 16px;
+    padding: 8px 12px;
+    font-size: 14px;
     background-color: rgb(28, 69, 114);
     color: #ffffff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin: 5px 8px;
+    margin: 0;
     display: inline-block;
     text-align: center;
 }
@@ -183,22 +183,22 @@
 /* Dynamic button styling */
 .button-container {
     display: flex;
-    gap: 8px;
+    gap: 5px;
     margin: 8px 0;
     flex-wrap: wrap;
-    padding: 4px;
+    padding: 2px;
     align-items: center;
     justify-content: flex-start;
 }
 
 .dynamic-button {
     display: inline-block;
-    padding: 8px 16px;
+    padding: 8px 12px;
     background-color: rgb(28, 69, 114);
     color: white !important;
     text-decoration: none !important;
     border-radius: 5px;
-    margin: 2px;
+    margin: 0;
     transition: all 0.3s ease;
 }
 
