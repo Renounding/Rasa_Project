@@ -170,3 +170,38 @@
     gap: 10px;
     margin-top: 10px;
 }
+
+.message-content {
+    width: 100%;
+}
+
+.message-content a {
+    color: #0066cc;
+    text-decoration: underline;
+}
+
+.message-content a:hover {
+    color: #004499;
+}
+
+.button-container {
+    display: flex;
+    gap: 8px;
+    margin: 8px 0;
+    flex-wrap: wrap;
+}
+
+.dynamic-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: rgb(28, 69, 114);
+    color: white !important;
+    text-decoration: none !important;
+    border-radius: 5px;
+    margin: 2px;
+    transition: background-color 0.3s ease;
+}
+
+.dynamic-button:hover {
+    background-color: rgb(22, 57, 96);
+}
