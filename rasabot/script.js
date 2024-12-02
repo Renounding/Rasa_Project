@@ -101,6 +101,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function renderMarkdown(text) {
+        // Handle links first
+        text = text.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+
         // Handle bold text
         text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         
@@ -113,7 +116,11 @@ document.addEventListener('DOMContentLoaded', function () {
     function addMessageToChat(sender, message) {
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', sender.toLowerCase().replace(' ', '-'));
-        messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        const contentContainer = document.createElement('div');
+        contentContainer.className = 'message-content';
+        contentContainer.innerHTML = `<strong>${sender}:</strong> ${message}`;
+
+        messageElement.appendChild(contentContainer);
         chatWindow.appendChild(messageElement);
         chatWindow.scrollTop = chatWindow.scrollHeight;
     }
