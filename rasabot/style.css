@@ -6,7 +6,7 @@
     width: 350px;
     background: white;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     transition: all 0.3s ease;
 }
@@ -78,7 +78,7 @@
 }
 
 #send-button:hover {
-    background-color: rgb(28, 69, 114);
+    background-color: rgb(22, 57, 96); /* Specific hover color */
 }
 
 /* Chat toggle button */
@@ -95,9 +95,30 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     font-size: 24px;
+}
+
+/* General styling for dynamically generated buttons */
+.dynamic-button, .topic-button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: rgb(28, 69, 114);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 5px 0;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.dynamic-button:hover, .topic-button:hover {
+    background-color: rgb(22, 57, 96);
+    color: #fafafa;
 }
 
 /* Keep your existing message styling */
@@ -107,17 +128,18 @@
     font-size: 14px;
     position: relative;
     border-radius: 15px;
-    display: inline-block; /* Prevent full-width */
+    display: inline-block;
     max-width: 80%;
     word-wrap: break-word;
 }
 
+/* Styling for user and bot messages */
 .user {
     background-color: #e7dfdf;
     color: #EF493E;
     text-align: right;
-    float: right; /* Keep the user message on the right */
-    clear: both; /* Ensure it clears previous floated elements */
+    float: right;
+    clear: both;
 }
 
 .goodie-bot {
@@ -126,19 +148,13 @@
     text-align: left;
 }
 
+/* Strong tag styling in messages */
 .message strong {
     font-weight: bold;
     margin-right: 5px;
 }
 
-.user strong {
-    color: #EF493E;
-}
-
-.goodie-bot strong {
-    color: rgb(51, 71, 91);
-}
-
+/* Link styling in messages */
 .message a {
     color: rgb(51, 71, 91);
     text-decoration: underline;
@@ -148,21 +164,9 @@
     color: #EF493E;
 }
 
+/* Topics container styling */
 .topics-container {
     display: flex;
     gap: 10px;
     margin-top: 10px;
-}
-
-.topic-button {
-    padding: 8px 16px;
-    background-color: rgb(51, 135, 192);
-    color: #faf9ff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.topic-button:hover {
-    background-color: #262262;
 }
