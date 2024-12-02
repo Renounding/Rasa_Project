@@ -129,21 +129,29 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then((response) => response.json())
             .then((data) => {
-                if (data && data.length > 0) {
-                    data.forEach((response) => {
-                        if (response.buttons) {
-                            response.buttons.forEach((button) => {
-                                addDynamicButton(button.title, button.url);
-                            });
-                        }
-                        if (response.text) {
-                            addMessageToChat('Goodie-Bot', renderMarkdown(response.text));
-                        }
-                    });
-                } else {
-                    addMessageToChat('Goodie-Bot', "I didn't understand that. Can you rephrase?");
-                }
-            })
+    if (data && data.length > 0) {
+        data.forEach((response) => {
+            // Check for attachment payload with buttons
+            if (response.attachment && response.attachment.payload) {
+                const buttons = response.attachment.payload.buttons;
+                buttons.forEach((button) => {
+                    addDynamicButton(button.title, button.url);
+                });
+            }
+            // Check for plain buttons
+            if (response.buttons) {
+                response.buttons.forEach((button) => {
+                    addDynamicButton(button.title, button.url);
+                });
+            }
+            if (response.text) {
+                addMessageToChat('Goodie-Bot', renderMarkdown(response.text));
+            }
+        });
+    } else {
+        addMessageToChat('Goodie-Bot', "I didn't understand that. Can you rephrase?");
+    }
+})
             .catch((error) => {
                 console.error('Error:', error);
                 addMessageToChat('Goodie-Bot', 'Connection issue. Try again later.');
