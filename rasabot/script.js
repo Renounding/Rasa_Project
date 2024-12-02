@@ -46,13 +46,21 @@ document.addEventListener('DOMContentLoaded', function () {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    if (data && data.length > 0) {
-                        data.forEach((response) => {
-                            if (response.buttons) {
-                                response.buttons.forEach((button) => {
-                                    addDynamicButton(button.title, button.url);
-                                });
-                            }
+                if (data && data.length > 0) {
+                    data.forEach((response) => {
+                        // Handle buttons in attachment payload
+                        if (response.attachment && response.attachment.payload) {
+                            const buttons = response.attachment.payload.buttons;
+                            buttons.forEach((button) => {
+                                addDynamicButton(button.title, button.url);
+                            });
+                        }
+                        // Handle plain buttons
+                        if (response.buttons) {
+                            response.buttons.forEach((button) => {
+                                addDynamicButton(button.title, button.url);
+                            });
+                        }
                             if (response.text) {
                                 addMessageToChat('Goodie-Bot', renderMarkdown(response.text));
                             }
