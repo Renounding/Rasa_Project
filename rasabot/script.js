@@ -1,19 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Select elements from the DOM
     const chatContainer = document.querySelector('.chat-container');
     const chatWindow = document.getElementById('chat-window');
     const userInput = document.getElementById('user-input');
     const sendButton = document.getElementById('send-button');
     const minimizeButton = document.querySelector('.minimize-button');
 
-    console.log('Elements initialized:', { chatContainer, chatWindow, userInput, sendButton });
-
-    // Create and add toggle button
+    // Chat toggle setup
     const toggleButton = document.createElement('div');
     toggleButton.className = 'chat-toggle';
     toggleButton.innerHTML = '💬';
     document.body.appendChild(toggleButton);
 
+    // Event Listeners
     minimizeButton.addEventListener('click', (event) => {
         event.preventDefault();
         chatContainer.style.display = 'none';
@@ -44,43 +42,72 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 body: JSON.stringify({ sender: 'user', message }),
             })
-                .then((response) => response.json())
-                .then((data) => {
+            .then(response => response.json())
+            .then(data => {
+                console.log('Rasa Response:', data); // Debugging log
+                
                 if (data && data.length > 0) {
-                    data.forEach((response) => {
-                        // Handle buttons in attachment payload
+                    data.forEach(response => {
+                        // Handle text message
+                        if (response.text) {
+                            addMessageToChat('Goodie-Bot', renderMarkdown(response.text));
+                        }
+                        
+                        // Handle button template attachments
                         if (response.attachment && response.attachment.payload) {
-                            const buttons = response.attachment.payload.buttons;
-                            buttons.forEach((button) => {
-                                addDynamicButton(button.title, button.url);
-                            });
-                        }
-                        // Handle plain buttons
-                        if (response.buttons) {
-                            response.buttons.forEach((button) => {
-                                addDynamicButton(button.title, button.url);
-                            });
-                        }
-                            if (response.text) {
-                                addMessageToChat('Goodie-Bot', renderMarkdown(response.text));
+                            const payload = response.attachment.payload;
+                            if (payload.template_type === 'button' && payload.buttons) {
+                                const buttonContainer = document.createElement('div');
+                                buttonContainer.className = 'button-container';
+                                
+                                payload.buttons.forEach(button => {
+                                    if (button.type === 'web_url') {
+                                        const buttonElement = createButtonLink(button);
+                                        buttonContainer.appendChild(buttonElement);
+                                    }
+                                });
+                                
+                                chatWindow.appendChild(buttonContainer);
+                                chatWindow.scrollTop = chatWindow.scrollHeight;
                             }
-                        });
-                    } else {
-                        addMessageToChat('Goodie-Bot', "I didn't understand that. Can you rephrase?");
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    addMessageToChat('Goodie-Bot', 'Connection issue. Try again later.');
-                });
+                        }
+                    });
+                } else {
+                    addMessageToChat('Goodie-Bot', "I didn't understand that. Can you rephrase?");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                addMessageToChat('Goodie-Bot', 'Connection issue. Try again later.');
+            });
 
             userInput.value = '';
         }
     }
 
+    function createButtonLink(button) {
+        const buttonElement = document.createElement('a');
+        buttonElement.className = 'dynamic-button';
+        buttonElement.href = button.url;
+        buttonElement.target = '_blank';
+        buttonElement.textContent = button.title;
+        
+        // Add PDF icon if it's a PDF link
+        if (button.url.toLowerCase().endsWith('.pdf')) {
+            buttonElement.innerHTML = `📄 ${button.title}`;
+        }
+        
+        return buttonElement;
+    }
+
     function renderMarkdown(text) {
-        return text.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
-                   .replace(/\n/g, '<br>');
+        // Handle bold text
+        text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        
+        // Handle line breaks
+        text = text.replace(/\n/g, '<br>');
+        
+        return text;
     }
 
     function addMessageToChat(sender, message) {
@@ -91,27 +118,15 @@ document.addEventListener('DOMContentLoaded', function () {
         chatWindow.scrollTop = chatWindow.scrollHeight;
     }
 
-    function addDynamicButton(text, url) {
-        const button = document.createElement('a');
-        button.className = 'dynamic-button';
-        button.innerText = text;
-        button.href = url;
-        button.target = '_blank';
-        chatWindow.appendChild(button);
-    }
-
-    // Greeting and topics functionality
+    // Initial greeting
     function addGreetingWithTopics() {
-        console.log('Adding greeting and topics...');
         addMessageToChat('Goodie-Bot', 'Welcome to our fake website. My name is Goodie, and I am your Academic Assistant! Please select a topic below:');
 
-        // Create a container for the topic buttons
         const topicsContainer = document.createElement('div');
         topicsContainer.classList.add('topics-container');
 
-        // Define topics and create buttons
         const topics = ['Programs', 'Admissions', 'Fees'];
-        topics.forEach((topic) => {
+        topics.forEach(topic => {
             const button = document.createElement('button');
             button.className = 'topic-button';
             button.innerText = topic;
@@ -119,12 +134,10 @@ document.addEventListener('DOMContentLoaded', function () {
             topicsContainer.appendChild(button);
         });
 
-        // Append the topics container to the chat window
         chatWindow.appendChild(topicsContainer);
     }
 
     function handleTopicSelection(topic) {
-        console.log(`Topic selected: ${topic}`);
         addMessageToChat('User', topic);
 
         fetch("https://ca33-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
@@ -135,37 +148,46 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify({ sender: 'user', message: topic }),
         })
-            .then((response) => response.json())
-            .then((data) => {
-    if (data && data.length > 0) {
-        data.forEach((response) => {
-            // Check for attachment payload with buttons
-            if (response.attachment && response.attachment.payload) {
-                const buttons = response.attachment.payload.buttons;
-                buttons.forEach((button) => {
-                    addDynamicButton(button.title, button.url);
-                });
-            }
-            // Check for plain buttons
-            if (response.buttons) {
-                response.buttons.forEach((button) => {
-                    addDynamicButton(button.title, button.url);
-                });
-            }
-            if (response.text) {
-                addMessageToChat('Goodie-Bot', renderMarkdown(response.text));
-            }
+        .then(response => response.json())
+        .then(data => handleRasaResponse(data))
+        .catch(error => {
+            console.error('Error:', error);
+            addMessageToChat('Goodie-Bot', 'Connection issue. Try again later.');
         });
-    } else {
-        addMessageToChat('Goodie-Bot', "I didn't understand that. Can you rephrase?");
-    }
-})
-            .catch((error) => {
-                console.error('Error:', error);
-                addMessageToChat('Goodie-Bot', 'Connection issue. Try again later.');
-            });
     }
 
-    // Initialize the chatbot with the greeting and topics
+    function handleRasaResponse(data) {
+        if (data && data.length > 0) {
+            data.forEach(response => {
+                if (response.text) {
+                    addMessageToChat('Goodie-Bot', renderMarkdown(response.text));
+                }
+                if (response.attachment && response.attachment.payload) {
+                    handleButtonPayload(response.attachment.payload);
+                }
+            });
+        } else {
+            addMessageToChat('Goodie-Bot', "I didn't understand that. Can you rephrase?");
+        }
+    }
+
+    function handleButtonPayload(payload) {
+        if (payload.template_type === 'button' && payload.buttons) {
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'button-container';
+            
+            payload.buttons.forEach(button => {
+                if (button.type === 'web_url') {
+                    const buttonElement = createButtonLink(button);
+                    buttonContainer.appendChild(buttonElement);
+                }
+            });
+            
+            chatWindow.appendChild(buttonContainer);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+    }
+
+    // Initialize the chatbot
     addGreetingWithTopics();
 });
