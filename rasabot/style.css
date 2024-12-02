@@ -75,10 +75,11 @@
     border-radius: 7px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 #send-button:hover {
-    background-color: rgb(22, 57, 96); /* Specific hover color */
+    background-color: rgb(22, 57, 96);
 }
 
 /* Chat toggle button */
@@ -100,28 +101,7 @@
     font-size: 24px;
 }
 
-/* General styling for dynamically generated buttons */
-.dynamic-button, .topic-button {
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: rgb(28, 69, 114);
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin: 5px 0;
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-}
-
-.dynamic-button:hover, .topic-button:hover {
-    background-color: rgb(22, 57, 96);
-    color: #fafafa;
-}
-
-/* Keep your existing message styling */
+/* Message styling */
 .message {
     margin: 5px 0;
     padding: 10px;
@@ -133,7 +113,6 @@
     word-wrap: break-word;
 }
 
-/* Styling for user and bot messages */
 .user {
     background-color: #e7dfdf;
     color: #EF493E;
@@ -146,49 +125,70 @@
     background-color: #e3e9f3;
     color: rgb(28, 69, 114);
     text-align: left;
+    clear: both;
 }
 
-/* Strong tag styling in messages */
+/* Message content styling */
+.message-content {
+    width: 100%;
+}
+
 .message strong {
     font-weight: bold;
     margin-right: 5px;
 }
 
-/* Link styling in messages */
 .message a {
     color: rgb(51, 71, 91);
     text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.message a:hover {
+    color: #003366;
 }
 
 .message.goodie-bot a {
     color: #EF493E;
+    text-decoration: underline;
+    transition: color 0.3s ease;
 }
 
-/* Topics container styling */
+.message.goodie-bot a:hover {
+    color: #c02d23;
+}
+
+/* Topic buttons styling */
 .topics-container {
     display: flex;
     gap: 10px;
     margin-top: 10px;
+    align-items: center;
 }
 
-.message-content {
-    width: 100%;
+.topic-button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: rgb(28, 69, 114);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px 8px;
+    display: inline-block;
+    text-align: center;
 }
 
-.message-content a {
-    color: #0066cc;
-    text-decoration: underline;
-}
-
-.message-content a:hover {
-    color: #004499;
-}
-
+/* Dynamic button styling */
 .button-container {
     display: flex;
     gap: 8px;
     margin: 8px 0;
     flex-wrap: wrap;
+    padding: 4px;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .dynamic-button {
@@ -199,9 +199,11 @@
     text-decoration: none !important;
     border-radius: 5px;
     margin: 2px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.dynamic-button:hover {
+/* Common hover state for buttons */
+.dynamic-button:hover, .topic-button:hover {
     background-color: rgb(22, 57, 96);
+    color: #fafafa;
 }
