@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleTopicSelection(topic) {
         addMessageToChat('User', topic); // Display selected topic as user message
 
-        fetch("https://8e65-34-130-104-142.ngrok-free.app/webhooks/rest/webhook", {
+        fetch("https://ca33-205-206-111-153.ngrok-free.app/webhooks/rest/webhook", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
