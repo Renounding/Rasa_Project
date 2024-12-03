@@ -5,9 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const sendButton = document.getElementById('send-button');
     const minimizeButton = document.querySelector('.minimize-button');
 
-    // Initialize chat history array
-    let chatHistory = [];
-
     // Chat toggle setup
     const toggleButton = document.createElement('div');
     toggleButton.className = 'chat-toggle';
@@ -117,16 +114,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function addMessageToChat(sender, message) {
-        // Store the message in history
-        const messageData = {
-            sender: sender,
-            message: message,
-            timestamp: new Date().getTime()
-        };
-        chatHistory.push(messageData);
-        sessionStorage.setItem('chatHistory', JSON.stringify(chatHistory));
-
-        // Create message element
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', sender.toLowerCase().replace(' ', '-'));
         const contentContainer = document.createElement('div');
@@ -138,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
         chatWindow.scrollTop = chatWindow.scrollHeight;
     }
 
+    // Initial greeting
     function addGreetingWithTopics() {
         addMessageToChat('Goodie-Bot', 'Welcome to our fake website. My name is Goodie, and I am your Academic Assistant! Please select a topic below:');
 
@@ -205,23 +193,6 @@ document.addEventListener('DOMContentLoaded', function () {
             chatWindow.appendChild(buttonContainer);
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
-    }
-
-    // Load saved chat history before initializing greeting
-    const savedHistory = sessionStorage.getItem('chatHistory');
-    if (savedHistory) {
-        chatHistory = JSON.parse(savedHistory);
-        chatHistory.forEach(msg => {
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message', msg.sender.toLowerCase().replace(' ', '-'));
-            const contentContainer = document.createElement('div');
-            contentContainer.className = 'message-content';
-            contentContainer.innerHTML = `<strong>${msg.sender}:</strong> ${msg.message}`;
-            
-            messageElement.appendChild(contentContainer);
-            chatWindow.appendChild(messageElement);
-        });
-        chatWindow.scrollTop = chatWindow.scrollHeight;
     }
 
     // Initialize the chatbot
