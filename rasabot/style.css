@@ -161,13 +161,14 @@
 /* Topic buttons styling */
 .topics-container {
     display: flex;
-    gap: 5px;
+    gap: 5px;  /* Already correct */
     margin-top: 8px;
-    justify-content: space-between;
+    justify-content: flex-start;  /* Changed from space-between */
 }
 
 .topic-button {
-    padding: 8px 12px;
+    flex: 0 1 auto;  /* Added to prevent stretching */
+    padding: 8px 16px;  /* Adjusted to match other buttons */
     font-size: 14px;
     background-color: rgb(28, 69, 114);
     color: #ffffff;
@@ -175,9 +176,10 @@
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin: 0;
+    margin-right: 5px;  /* Added small right margin */
     display: inline-block;
     text-align: center;
+    min-width: 100px;  /* Added to make buttons more uniform */
 }
 
 /* Dynamic button styling */
